@@ -11,7 +11,7 @@ export default function Home(){
   useEffect (() => {
     const fetchData = async() => {
       try {
-        const res = await fetch('https://api.evanc.dev/images/random');
+        const res = await fetch('https://api.evanc.dev/images/random?start=0&end=200');
         const data = await res.json();
         setImages(data);
         setLoading(false);
