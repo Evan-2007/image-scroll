@@ -52,7 +52,7 @@ export default function Images(props: imageProps) {
       {/* <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 800: 3, 1100: 4, 1700: 5 }}> */}
         <Masonry columns={{xs: 2, sm: 3, md: 4, xl: 5}} spacing={1}>
         {items.map((item, index) => (
-              <img src={`https://via.placeholder.com/${item.name}`} alt={item.title} key={index} />
+              <img src={`https://via.placeholder.com/${item.name}`} alt={item.title} key={index} loading='lazy'   style={{ minHeight: 10 }} />
           ))}
         </Masonry>
       {/* </ResponsiveMasonry> */}
