@@ -6,10 +6,10 @@ export default function Header(){
             <h1 className="text-6xl font-bold">Title</h1>
             <div className="w-4/6 h-[1px] bg-black mt-6"></div>
             <div className='mt-4'>
-                <Link href="/" className="text-2xl font-bold">Home</Link>
-                <Link href="/images" className="text-2xl font-bold ml-12">Images2</Link>
-                <Link href="/about" className="text-2xl font-bold ml-12">About</Link>
-                <Link href="/contact" className="text-2xl font-bold ml-12">Contact</Link>
+                <Link href="/" className="text-xl md:text-xl font-bold">Home</Link>
+                <Link href="/images" className="text-xl md:text-xl font-bold ml-5 md:ml-12">Images2</Link>
+                <Link href="/about" className="text-xl md:text-xl font-bold ml-5 md:ml-12">About</Link>
+                <Link href="/contact" className="text-xl md:text-xl font-bold ml-5 md:ml-12">Contact</Link>
             </div>
         </div>
     )
