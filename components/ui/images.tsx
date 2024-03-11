@@ -50,7 +50,7 @@ export default function Images(props: imageProps) {
       className='flex justify-center flex-wrap gap-4 overflow-hidden w-5/6 items-center mx-auto'
     >
       {/* <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 800: 3, 1100: 4, 1700: 5 }}> */}
-        <Masonry gutter="10px">
+        <Masonry columns={{xs: 2, sm: 3, md: 4, xl: 5}} spacing={1}>
         {items.map((item, index) => (
               <img src={`https://via.placeholder.com/${item.name}`} alt={item.title} key={index} />
           ))}
