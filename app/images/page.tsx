@@ -1,4 +1,4 @@
-'use server';
+'use client';
 import Images from '@/components/ui/images';
 import {images} from '@/data/images';
 
