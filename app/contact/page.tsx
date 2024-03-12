@@ -1,8 +1,8 @@
 'use client';
-import { Images } from '@/components/ui/customMasonry';
+//import { Images } from '@/components/ui/customMasonry';
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
-
+import  { Images } from "@/components/ui/react-virtualized"
 export default function Home(){
   const [images, setImages]= useState([]);
   const [ loading, setLoading] = useState(true);
