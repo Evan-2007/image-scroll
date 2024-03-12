@@ -2,6 +2,7 @@
 import Images from '@/components/ui/images';
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
+import { MasonryComponent } from '@/components/ui/masonry';
 
 export default function ImageExample(){
   const [images, setImages]= useState([]);
@@ -23,7 +24,7 @@ export default function ImageExample(){
   }, []);
   return (
     <div className=''>
-      {loading ? <Loader2 size={100} className='animate-spin overflow-hidden mb-6'/> : error? <p >Error</p>: <Images images={images}/>}
+      <MasonryComponent />
     </div>
   )
 }

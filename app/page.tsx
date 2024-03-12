@@ -1,5 +1,5 @@
 'use client';
-import Images from '@/components/ui/images';
+import { Images } from '@/components/ui/images';
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
