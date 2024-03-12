@@ -76,13 +76,6 @@
 
         {/* <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 800: 3, 1100: 4, 1700: 5 }}> */}
           <Masonry columns={{xs: 2, sm: 3, md: 4, xl: 5}} spacing={1} defaultHeight={300} className={styles.fadein} >
-            <List
-              itemData={items}
-              height={1000}
-              width={1000}
-              itemSize={300}
-              itemCount={items.length}
-            >
               {items.map((item, index) => (
                 <div key={index} className={styles.fadeIn}>
                   {item.name === 'loading' ? (
@@ -92,7 +85,6 @@
                   )}
                 </div>
                 ))}
-            </List>
           </Masonry>
         {/* </ResponsiveMasonry> */}
         </InfiniteScroll>
