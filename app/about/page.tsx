@@ -1,5 +1,5 @@
 'use client';
-import { Images } from '@/components/ui/customMasonry';
+import MasonryImageGrid from '@/components/ui/customMasonry';
 import { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
@@ -22,8 +22,8 @@ export default function Home(){
     fetchData();
   }, []);
   return (
-    <div className=''>
-      {loading ? <Loader2 size={100} className='animate-spin overflow-hidden mb-6'/> : error ? <p >Error</p>: <Images images={images}/>}
+    <div className='flex justify-center mb-10'>
+      {loading ? <Loader2 size={100} className='animate-spin overflow-hidden mb-6'/> : error ? <p >Error</p>: <MasonryImageGrid images={images}/>}
     </div>
   )
 }
