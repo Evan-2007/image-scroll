@@ -1,94 +1,80 @@
 import React, { useState, useEffect } from "react";
 import { CellMeasurer, CellMeasurerCache, createMasonryCellPositioner, Masonry } from 'react-virtualized';
 import ImageMeasurer from 'react-virtualized-image-measurer';
+import styled from 'styled-components';
 
-// interface Image {
-//   name: string;
-//   title: string;
-//   id: number;
-//   width: number;
-//   height: number;
-//   src: string;
-// }
+const MasonryContainer = styled.div`
+  height: 100vh;
+  overflow: auto;
+`;
 
-// interface imageProps {
-//   images: Image[];
-// }
+const defaultWidth = 200;
 
 export const Images = function Images(props) {
-  const columnWidth = 200;
-  const defaultHeight = 250;
-
   const cache = new CellMeasurerCache({
-    defaultHeight,
-    defaultWidth: columnWidth,
+    defaultWidth,
+    defaultHeight: 250,
     fixedWidth: true,
   });
-
   const cellPositioner = createMasonryCellPositioner({
     cellMeasurerCache: cache,
-    columnCount: 3,
-    columnWidth,
+    columnCount: Math.floor(window.innerWidth / (defaultWidth + 10)),
+    columnWidth: defaultWidth,
     spacer: 10,
   });
 
   useEffect(() => {
-    // Prepend a cache-buster to ensure images are not cached by the browser.
-    const noCacheList = props.images.map(item => ({
-      ...item,
-    }));
+    const first = window.addEventListener('resize', () => {
+      cache.clearAll();
+      cellPositioner.reset({
+        columnCount: Math.floor(window.innerWidth / (defaultWidth + 10)),
+        columnWidth: defaultWidth,
+        spacer: 10,
+      });
+    });
+    return () => window.removeEventListener('resize', first);
+  
+  }, [cache, cellPositioner])
+  
 
-    // This state is not used directly in rendering and the comment might be confusing,
-    // as we handle sizes directly through ImageMeasurer now. Consider removing or modifying this.
-    // setItemsWithSizes(noCacheList);
+  useEffect(() => {
+    const noCacheList = props.images.map(item => ({ ...item }));
   }, [props.images]);
 
-  // Directly use items from props, as ImageMeasurer will handle loading and size measurement.
-  const items = props.images.map(item => ({
-    ...item,
-  }));
+  const items = props.images.map(item => ({ ...item }));
 
-  const cellRenderer = ({ index, key, parent, style }) => {
-    // Here we need to ensure that we're using the correctly measured sizes.
-    // However, this function does not have direct access to itemsWithMeasuredSizes.
-    // Ensure that this function is correctly tied to the output of ImageMeasurer.
-  };
-
-  // Correct usage of ImageMeasurer. You need to ensure that the measured sizes are correctly passed down.
   return (
-    <ImageMeasurer
-      items={items}
-      image={item => item.src}
-      defaultHeight={defaultHeight}
-      defaultWidth={columnWidth}
-    >
-      {({ itemsWithSizes }) => (
-        <Masonry
-          cellCount={itemsWithSizes.length}
-          cellMeasurerCache={cache}
-          cellPositioner={cellPositioner}
-          cellRenderer={({ index, key, parent, style }) => {
-            const { item, size } = itemsWithSizes[index];
-            const height = columnWidth * (size.height / size.width) || defaultHeight;
-            return (
-              <CellMeasurer cache={cache} index={index} key={key} parent={parent}>
-                <div style={style}>
-                  <img
-                    src={item.src}
-                    alt={item.title}
-                    style={{
-                      height: height,
-                      width: columnWidth,
-                    }}
-                  />
-                </div>
-              </CellMeasurer>
-            );
-          }}
-          height={window.innerHeight}
-          width={window.innerWidth}
-        />
-      )}
-    </ImageMeasurer>
+    <MasonryContainer>
+      <ImageMeasurer
+        items={items}
+        image={item => item.src}
+        defaultWidth={defaultWidth}
+      >
+        {({ itemsWithSizes }) => (
+          <Masonry
+            cellCount={itemsWithSizes.length}
+            cellMeasurerCache={cache}
+            cellPositioner={cellPositioner}
+            cellRenderer={({ index, key, parent, style }) => {
+              const { item, size } = itemsWithSizes[index];
+              const height = (defaultWidth * size.height) / size.width; // Calculate height based on aspect ratio
+              return (
+                <CellMeasurer cache={cache} index={index} key={key} parent={parent}>
+                  <div style={{ ...style, height }}>
+                    <img
+                      src={item.src}
+                      alt={item.title}
+                      style={{ height: '100%', width: 'auto' }}
+                    />
+                  </div>
+                </CellMeasurer>
+              );
+            }}
+            height={window.innerHeight}
+            width={window.innerWidth}
+          />
+        )}
+      </ImageMeasurer>
+    </MasonryContainer>
   );
 }
