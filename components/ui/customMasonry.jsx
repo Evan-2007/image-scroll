@@ -57,8 +57,9 @@ const MasonryImageGrid = ({ images }) => {
             src={image.src}
             alt={image.title}
             style={{ width: '100%', display: 'block' }}
-            className='p-1 hover:scale-110 relative z-10 hover:z-20 transition-transform duration-300 ease-in-out'
+            className='p-1 hover:scale-110 relative z-10 hover:z-20 transition-transform duration-300 ease-in-out rounded-md'
             onClick={handleModal.bind(this, image.src)}
+            draggable="false"
           />
       );
       columnHeights[shortestColumnIndex] += imageHeight;
